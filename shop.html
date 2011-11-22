@@ -1,0 +1,182 @@
+<!--/
+	Cartching Theme | Skeletor
+    Copyright (c) Cartching, 2011
+    http://cartching.com
+/-->
+
+<!-- #EXTENDS file="theme.html" -->
+
+
+
+<!-- #BLOCK for="pagetitle_area" -->
+<!-- #ENDBLOCK -->
+
+
+
+<!-- #BLOCK for="content_area" -->
+
+
+
+    <!-- #IF {{snippets.shop-page-callout}} -->
+
+	<script type="text/javascript" src="http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle-min.js"></script>
+	<script type="text/javascript">
+		$(".cycle").cycle({
+			fx: 'fade'
+		});
+	</script>
+
+    <div id="shop-page-callout" class="shop-page-callout">
+    	<div class="cycle">{{snippets.shop-page-callout}}</div>
+    </div>    
+    
+    <!-- #ELSE -->
+    <!-- 
+    
+    // - Add a Snippet named "Shop Page Callout"    
+    // - Add Links, Images
+
+    <div id="shop-page-callout" class="shop-page-callout">
+
+		<a href="http://"><img src="http://" alt="" title="" /></a>
+    
+    </div>
+	-->
+    <!-- #ENDIF -->
+
+
+
+	<!-- #IF {{products.featured}} -->
+    <div class="product-list featured">
+    
+        <!--#FOREACH {{product in products.featured | shuffle | pick(8) }} -->
+        <div class="hproduct product-listitem {{product.slug}}">
+        <div class="inner">
+
+            <div class="product-photo">
+                <a title="{{product.name | html_encode}} / {{product.price | money}}" href="{{product.url}}" class="url" rel="product"><img src="{{product.image}}-150x160-90.jpg" alt="{{product.excerpt | html_encode}}" class="photo" /></a>
+            </div>
+
+            <p class="price">
+                <!-- #IF {{product.onsale}} -->
+                <del><span class="currency">{{store.currency_sign}}</span><span class="dollars">{{product.fullprice | money_dollars}}</span><!-- #IF {{product.fullprice | money_cents}} --><span class="cents">.{{product.fullprice | money_cents}}</span><!-- #ENDIF --></del>
+                <!-- #ENDIF -->
+                <span class="currency">{{store.currency_sign}}</span><span class="dollars">{{product.price | money_dollars}}</span><!-- #IF {{product.price | money_cents}} --><span class="cents">.{{product.price | money_cents}}</span><!-- #ENDIF -->
+            </p>
+
+            <h4 class="title" title="{{product.name | html_encode}} / {{product.price | money}}"><a href="{{product.url}}" class="url" rel="product" title="{{product.name | html_encode}}">{{product.name | html_encode}}</a> <!-- #IF {{store.loggedin}} --><a class="store-edit" href="{{product.editurl}}">(Edit)</a><!-- #ENDIF --></h4>
+
+		</div>
+        </div>
+        <!--#NEXT -->
+    
+        <div class="clear"></div>
+        
+    </div>
+
+
+    <!-- #ELSE -->
+    <div class="product-list featured all">
+
+
+        <!--#FOREACH {{product in products.all | shuffle | pick(4) }} -->
+        <div class="hproduct product-listitem {{product.slug}}">
+        <div class="inner">
+
+            <div class="product-photo">
+                <a title="{{product.name | html_encode}} / {{product.price | money}}" href="{{product.url}}" class="url" rel="product"><img src="{{product.image}}-150x160-90.jpg" alt="{{product.excerpt | html_encode}}" class="photo" /></a>
+            </div>
+
+            <p class="price">
+                <!-- #IF {{product.onsale}} -->
+                <del><span class="currency">{{store.currency_sign}}</span><span class="dollars">{{product.fullprice | money_dollars}}</span><!-- #IF {{product.fullprice | money_cents}} --><span class="cents">.{{product.fullprice | money_cents}}</span><!-- #ENDIF --></del>
+                <!-- #ENDIF -->
+                <span class="currency">{{store.currency_sign}}</span><span class="dollars">{{product.price | money_dollars}}</span><!-- #IF {{product.price | money_cents}} --><span class="cents">.{{product.price | money_cents}}</span><!-- #ENDIF -->
+            </p>
+
+            <h4 class="title" title="{{product.name | html_encode}} / {{product.price | money}}"><a href="{{product.url}}" class="url" rel="product" title="{{product.name | html_encode}}">{{product.name | html_encode}}</a> <!-- #IF {{store.loggedin}} --><a class="store-edit" href="{{product.editurl}}">(Edit)</a><!-- #ENDIF --></h4>
+
+
+            <!-- #IF {{ product.disabled | not }} -->
+				<!-- #IF {{product.variation}} -->
+					<!-- #IF {{product.soldout | not}} -->
+                    <div class="addtocart">
+                    <form action="/cart/add" method="post">
+                    <input type="hidden" name="returnurl" value="/cart/" />
+                    <input type="hidden" name="product" value="{{product.id}}" />
+						<button type="submit" class="button addtocart" title="Add (1) to my Cart">Quick Add</button>
+                    </form>
+                    </div>
+	                <!-- #ENDIF -->
+                <!-- #ENDIF -->
+            <!-- #ENDIF -->
+
+
+		</div>
+        </div>
+        <!--#NEXT -->
+
+        <div class="clear"></div>
+        
+    </div>    
+    <!-- #ENDIF -->    
+
+
+
+	<!-- #IF {{blogs.all}} -->
+	<div class="post list hfeed highlights">
+
+        <!-- #FOREACH {{article in blogs.all.articles | pick(1) }} -->
+		<div id="post-{{article.slug}}" class="post-listitem hentry post-{{article.slug}} <!-- #FOREACH {{ tag in article.tags}} --> tag-{{tag.slug}}<!-- #NEXT -->">
+
+			<!-- #IF {{article.image}} -->
+			<div class="post-image"><img src="{{article.image}}-240x240.jpg" alt="{{article.title | html_encode}}" /></div>
+			<!-- #ENDIF -->
+
+
+			<div class="preview">
+
+                <!-- #IF {{article.category}} -->
+                <p class="post-category"><a href="{{article.category.url}}">{{article.category | html_encode}}</a></p>
+                <!-- #ENDIF -->
+    
+                <h2 class="entry-title">
+                    <a rel="bookmark" href="{{article.url}}">{{article.title | html_encode}}</a>
+                    <!-- #IF {{store.loggedin}} --><a class="store-edit" href="{{article.editurl}}">(Edit)</a><!-- #ENDIF -->
+                </h2>
+                
+                <div class="info">
+                    <dl class="published-info">
+                        <dt>Published on</dt>
+                        <dd><abbr class="date published" title="{{article.published | date}}">{{ allarticle.published | date('MMMM') }} {{ allarticle.published | date('dd') }}, {{ allarticle.published | date('yyyy') }}</abbr></dd>
+                    </dl>
+                    <dl class="author-info">
+                        <dt>Posted by</dt>
+                        <dd class="author vcard">
+                            <span class="fn">{{article.author | html_encode}}</span>
+                        </dd>
+                    </dl>
+                </div>
+    
+                <!-- #IF {{article.excerpt}} -->
+                <p class="entry-excerpt">{{article.excerpt | strip_html }}</p>
+                <!-- #ENDIF -->
+        
+                <p class="permalink"><a class="permalink" title="Read more from {{article.title | html_encode}}" href="{{article.url}}">Permalink</a></p>
+    
+                <!-- #IF {{article.tags}} -->
+                <p class="tags"><strong>Tags:</strong><!-- #FOREACH {{tag in article.tags}} --> <a href="{{tag.url}}">{{tag}}</a><!-- #NEXT --></p>
+                <!-- #ENDIF -->
+
+			</div>
+
+			<div class="clear"></div>
+
+		</div>
+		<!-- #NEXT -->
+
+	</div>
+	<!-- #ENDIF -->
+
+
+<!-- #ENDBLOCK -->

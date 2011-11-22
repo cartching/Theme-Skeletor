@@ -1,0 +1,379 @@
+<!--/
+	Cartching Theme | Skeletor
+    Copyright (c) Cartching, 2011
+    http://cartching.com
+/-->
+
+<!-- #EXTENDS file="theme-simple.html" -->
+
+
+
+<!-- #BLOCK for="headtitle_content" -->
+
+    <!-- #IF {{customer.loggedin}} -->
+	<title>Your Account | {{store | html_encode}}</title>
+    <!-- #ELSE -->
+	<title>Sign In | {{store | html_encode}}</title>
+    <!-- #ENDIF -->
+
+<!-- #ENDBLOCK -->
+
+
+
+<!-- #BLOCK for="head_content" -->
+
+    <!-- #IF {{customer.loggedin}} -->
+
+		<script type="text/javascript">
+        <!--
+            function Enableshippingaddress(theForm, enabled) {
+                var shippingFields = document.getElementById("account-shipping");
+                if (shippingFields)
+                    shippingFields.style.display = enabled ? "" : "none";
+            }
+    
+        // Validate Account Form
+        function validate_accountform() {
+        
+            if (document.accountform.name.value=="") {
+                alert("You must enter your Full Name.");
+                document.accountform.name.focus(); 
+                return false;
+            }
+        
+            if (document.accountform.email.value=="") {
+                alert("Please enter your Email Address.");
+                document.accountform.email.focus();
+                return false;
+            }
+        
+            var emailFilter=/^.+@.+\..{2,3}$/;
+            if (!(emailFilter.test(document.accountform.email.value))) { 
+                alert("Please enter a valid Email Address.");
+                document.accountform.email.focus();
+               return false;
+            }
+        
+            if (document.accountform.Password1.value=="") {
+                alert("You must a Valid Password.");
+                document.accountform.Password1.focus(); 
+                return false;
+            }
+        
+            if (document.accountform.Password2.value=="") {
+                alert("You must Re-enter a Password.");
+                document.accountform.Password2.focus(); 
+                return false;
+            }
+        
+            if (document.accountform.Password1.value != document.accountform.Password2.value) {
+                alert("Your Password does not match.");
+                document.accountform.Password2.focus(); 
+                return false;
+            }
+        
+            return true;
+        }
+        
+        -->
+        </script>
+    
+
+	<!-- #ELSE -->
+
+
+        <script type="text/javascript">
+        <!--
+        
+        // Validate Account Sign In
+        function validate_accountlogin() {
+        
+            if (document.accountlogin.username.value=="") {
+                alert("Please enter your Username/Email Address before continuing.");
+                document.accountlogin.username.focus();
+                return false;
+            }
+            
+            if (document.accountlogin.password.value=="") {
+                alert("You must enter your Password.");
+                document.accountlogin.password.focus(); 
+                return false;
+            }
+        
+            return true;
+        }
+        
+        
+        // Validate Forgot Password
+        function validate_accountsendpassword() {
+        
+            if (document.accountsendpassword.email.value=="") {
+                alert("Please enter your Email Address before continuing.");
+                document.accountsendpassword.email.focus();
+                return false;
+            }
+        
+            var emailFilter=/^.+@.+\..{2,3}$/;
+            if (!(emailFilter.test(document.accountsendpassword.email.value))) { 
+                alert("Please enter a valid Username/Email Address.");
+                document.accountsendpassword.email.focus();
+               return false;
+            }
+        
+            return true;
+        }
+        
+        -->
+        </script>
+    
+    <!-- #ENDIF -->
+    
+    
+
+<!-- #ENDBLOCK -->
+
+
+
+
+<!-- #BLOCK for="pagetitle_area" -->
+
+    <div class="pagetitle_area">    
+	    <div id="pagetitle">
+        	<div class="container">
+
+                <!-- #IF {{customer.loggedin}} -->
+                    <h1>Your Account</h1>
+                <!-- #ELSE -->
+                    <h1>Sign In</h1>    
+                <!-- #ENDIF -->
+
+            </div>
+		</div>
+	</div>
+
+<!-- #ENDBLOCK -->
+
+
+
+
+<!-- #BLOCK for="content_area" -->
+
+<!-- #IF {{customer.loggedin}} -->
+<!-- #ELSE -->
+
+    <div class="signin float-left">
+        <fieldset>
+        <legend>Sign In</legend>
+            <form method="post" name="accountlogin" onsubmit="return validate_accountlogin();" action="/account/login">
+                <ul>
+                    <li>
+                        <label>Your Username</label>
+                        <input name="username" type="text" id="username" class="text lrg" title="Enter your Username" />
+                    </li>
+                    <li>
+                        <label>Password</label>
+                        <input name="password" type="password" id="password" class="text password lrg" title="Enter your Password" />
+                    </li>
+                    <li class="checkbox">
+                        <input type="checkbox" value="1" id="rememberme" name="rememberme" class="checkbox" title="Remember Me" />
+                        <label for="rememberme">Remember Me</label>
+                    </li>
+                    <li class="submit">
+                        <button name="login" type="submit" id="login" class="button login" title="Sign In">Sign In</button>
+                    </li>
+                </ul>
+            </form>
+        </fieldset>
+    </div>  
+
+     
+    <div class="forgotpassword float-right">
+
+        <fieldset>
+            <legend>Lost Password</legend>
+            <p>We will email you your Signin details.</p>
+            <form method="post" name="accountsendpassword" onsubmit="return validate_accountsendpassword();" action="/account/sendpassword">
+            <input type="hidden" name="returnUrl" value="/account/sendpassword?returnurl={{page.url}}" />
+            <ul>
+                <li>
+                    <label>Your Email</label>
+                    <input name="email" type="text" id="email" class="text lrg" title="Enter you Email Address" />
+                </li>
+                <li class="submit">
+                    <button name="submit" type="submit" id="submit" class="button getpassword" title="Click to email your Account Details to Sign In.">Get</button>
+                </li>
+            </ul>
+            </form>
+        </fieldset>
+    </div>
+
+
+    <div class="clear"></div>
+
+    <hr />
+
+    <a name="create" id="create"></a>
+    <h1>OR Create an Account</h1>
+
+
+<!-- #ENDIF -->
+
+
+
+    <form action="/account/update" method="post" name="accountform" onSubmit="return validate_accountform();">
+    <input id="customerId" name="customerId" type="hidden" value="{{customer.id}}" />
+
+    
+    
+    <div class="account-personal float-left">
+    <fieldset>
+        <legend>Personal Details</legend>
+        <ul>
+            <li class="required">
+                <label>Name</label>
+                <input name="Name" type="text" id="name" value="{{customer.name}}" class="text lrg" title="Your Name" />
+            </li>
+            <li class="required">
+                <label>Email</label>
+                <input name="Email" type="text" id="email" value="{{customer.email}}" class="text lrg" title="Your Email" />
+            </li>
+            <li>
+                <label>Phone</label>
+                <input name="Phone" type="text" id="phone" value="{{customer.phone}}" class="text med" title="Your Phone No." />
+            </li>
+        </ul>
+    </fieldset>
+    </div>
+    
+
+    
+    <div class="account-password float-right">
+    <fieldset>
+        <legend>Your Password</legend>
+        <ul>
+            <li class="required">
+                <label for="password1">Password</label>
+                <input name="Password1" type="password" id="Password1" class="text password lrg" title="Your Password" />
+            </li>                
+            <li class="required">
+                <label for="password2">Confirm Password</label>
+                <input name="Password2" type="password" id="Password2" class="text password lrg" title="Confirm Password" />
+            </li>
+        </ul>
+    </fieldset>
+    </div>
+
+    
+    <div class="clear"></div>
+    
+
+    
+    <div class="account-billing float-left">
+    <fieldset>
+        <legend>Billing details</legend>
+        <ul>
+            <li class="required">
+                <label for="billingaddress.Street">Address Line1:</label>
+                <input name="billingaddress.Street" type="text" id="billingaddress.street" value="{{customer.billingaddress.street}}" class="text lrg" title="Street address, P.O. box, company name, c/o" />
+                <span>Street address, P.O. box, company name, c/o</span>
+            </li>
+            <li>
+                <label for="billingaddress.Street2">Address Line2:</label>
+                <input name="billingaddress.Street2" type="text" id="billingaddress.street2" value="{{customer.billingaddress.street2}}" class="text lrg" title="Apartment, suite, unit, building, floor, etc." />
+                <span>Apartment, suite, unit, building, floor, etc.</span>
+            </li>
+            <li class="required">
+                <label for="billingaddress.city">City</label>
+                <input name="billingaddress.city" type="text" id="billingaddress.city" value="{{customer.billingaddress.city}}" class="text lrg" title="City" />
+            </li>
+            <li class="required">
+                <label for="billingaddress.state">State/Province/Region</label>
+                <input name="billingaddress.state" type="text" id="billingaddress.state" value="{{customer.billingaddress.state}}" class="text sml" title="State/Province/Region" />
+            </li>
+            <li class="required">
+                <label for="billingaddress.countrycode">Country:</label>
+                <select name="billingaddress.countrycode" id="billingaddress.countrycode" class="select lrg" title="Country">
+                    <option>&nbsp;</option>
+                     {{ countries | html_options(Name,CountryCode,Customer.billingaddress.country.countrycode) }}
+                </select>
+            </li>
+            <li class="required">
+                <label for="billingaddress.postcode">ZIP/Postal Code:</label>
+                <input name="billingaddress.postcode" type="text" id="billingaddress.postcode" value="{{customer.billingaddress.postcode}}" class="text sml" title="ZIP/Postal Code" />
+            </li>
+            <li class="checkbox">
+                <input id="shiptobillingaddress" type="checkbox" name="shiptobillingaddress" onClick="enableshippingaddress(this.form, !this.checked);" value="true" class="checkbox" {{Customer.ShipTobillingaddress|default('true')|html_checked}} />
+                <label for="shiptobillingaddress">Use my Billing address for Shipping</label>
+            </li>
+        </ul>
+    </fieldset>
+    </div>
+
+		
+
+    <div id="account-shipping" class="account-shipping float-right" style="{{customer.shiptobillingaddress | default('true') | if('display:none','')}}">
+    <fieldset>
+        <legend>Shipping Address</legend>
+        
+        <h4>Complete only if different to the Billing Address</h4>
+        
+        <ul>
+            <li class="required">
+                <label for="shippingaddress.Street">Address Line1:</label>
+                <input name="shippingaddress.Street" type="text" id="shippingaddress.street" value="{{customer.shippingaddress.street}}" class="text lrg" title="Street address, P.O. box, company name, c/o" />
+                <span>Street address, P.O. box, company name, c/o</span>
+            </li>
+            <li class="optional">
+                <label for="shippingaddress.Street2">Address Line2:</label>
+                <input name="shippingaddress.Street2" type="text" id="shipaddress2" value="{{customer.shippingaddress.street2}}" class="text lrg" title="Apartment, suite, unit, building, floor, etc." />
+                <span>Apartment, suite, unit, building, floor, etc.</span>
+            </li>
+            <li class="required">
+                <label for="shippingaddress.City">City</label>
+                <input name="shippingaddress.City" type="text" id="shippingaddress.city" value="{{customer.shippingaddress.city}}" class="text lrg" title="City" />
+            </li>
+            <li class="required">
+                <label for="shippingaddress.State">State/Province/Region</label>
+                <input name="shippingaddress.State" type="text" id="shippingaddress.state" value="{{customer.shippingaddress.state}}" class="text sml" title="State/Province/Region" />
+            </li>
+            <li class="required">
+                <label for="shippingaddress.CountryCode">Country:</label>
+                <select name="shippingaddress.CountryCode" id="shippingaddress.countrycode" class="select lrg" title="Country">
+                    <option>&nbsp;</option>
+                    {{Countries|html_options(Name,CountryCode,Customer.shippingaddress.Country.CountryCode)}}
+                </select>
+            </li>
+            <li class="required">
+                <label for="shippingaddress.PostCode">ZIP/Postal Code:</label>
+                <input name="shippingaddress.PostCode" type="text" id="shippingaddress.postcode" value="{{customer.shippingaddress.postcode}}" class="text sml" title="ZIP/Postal Code" />
+            </li>
+        </ul>
+    </fieldset>
+    </div>
+           
+
+    <div class="clear"></div>
+
+
+    <!-- #IF {{customer.loggedin}} -->
+        
+        <div class="submit account-save">
+            <h4>Finished?</h4>
+            <button type="submit" class="button updateaccount" title="Update your Account Details">Update Your Account</button>
+        </div>
+    
+    <!-- #ELSE -->
+    
+        <div class="submit account-create">
+            <h4>Finished?</h4>
+		    <p>If the address details are not entered correctly, your package may be returned as undeliverable.</p>
+            <button type="submit" class="button createaccount" title="Create your Account">Create Account</button>
+        </div>	
+    
+    <!-- #ENDIF -->
+
+
+   </form>
+
+
+<!-- #ENDBLOCK -->

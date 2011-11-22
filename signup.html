@@ -1,0 +1,165 @@
+﻿<!-- #EXTENDS file="theme.html" -->
+
+<!-- #BLOCK for="pagetitle_area" --><h1>Sign up for an Online Store</h1><!-- #ENDBLOCK -->
+
+<!-- #BLOCK for="content_area" -->
+
+<!-- #IF {{store.loggedin}} -->
+
+
+	<style type="text/css">
+	/* COPY START HERE * /
+		.form fieldset{border:none;margin:0;padding:0;}
+		.form legend{display:none;}
+		.form div{clear:both;margin:.5em 0;}
+		.form label{
+			float:left;
+			width:150px;
+			}
+		.form .field, .form .area{
+			width:250px;
+			padding:3px;
+			}
+		.form select{padding:3px;width:256px;}
+		.form .submit{margin-left:150px;}
+	/ * COPY END HERE */
+		.form label { font-weight: bold; }
+		.form li, .form ul { list-style: none; padding: 0; margin: 0; }
+		.form li { margin:0.5em 0; }
+		.tiny { width: 75px !important; }
+		.sml { width: 150px !important; }
+		.med { width: 300px !important; }
+		.lge { width: 450px !important; }
+		.nowrap { white-space: nowrap; }
+	</style>
+
+<form action="/signup" method="post" class="form">
+
+	<h2>Full Signup Form</h2>
+	<fieldset>
+		<legend>Personal Information</legend>
+		<p>These are the login details for the Administrator User for your store.</p>
+		<ul>
+			<li>
+				<label for="contact">Contact Name</label>
+				<input type="text" id="Text1" name="contact" class="text" title="Contact Name" />
+			</li>
+			<li>
+				<label for="email">Contact Email</label>
+				<input type="text" id="Text2" name="email" class="text" title="Contact Email" />
+			</li>
+			<li>
+				<label for="password">Password</label>
+				<input type="password" id="password1" name="password" class="text password" title="Password" />
+			</li>
+			<li>
+				<label for="pasword2">Confirm Password</label>
+				<input type="password" id="password3" name="password2" class="text password" title="Confirm Password" />
+			</li>
+		</ul>
+	</fieldset>
+
+	<fieldset>
+		<legend>Account Setup</legend>
+		<p>This is the Name and URL your customers will see.</p>
+		<ul>
+			<li>
+				<label for="name">Store Name</label>
+				<input type="text" name="name" class="text" title="Store Name" />
+			</li>
+			<li>
+				<label for="url">Store URL</label>
+				<span class="nowrap">
+					http://<input type="text" name="url" value="" class="text sml" title="Store URL" />.store-dev.com
+					<input type="hidden" name="domain" value="store-dev.com" />
+				</span>
+			</li>
+			<li>
+				<label for="country">Country</label>
+				<select name="country" class="select" title="Country">
+					<option></option>
+					{{countries|html_options(Name,CountryCode,'')}}
+				</select>
+			</li>
+			<li>
+				<label for="paypal">Paypal Address</label>
+				<input type="text" name="paypal" class="text" title="Paypal Address" />
+			</li>
+		</ul>
+	</fieldset>
+
+	<fieldset>
+		<legend>Confirmation</legend>
+		<ul>
+			<li>
+				<label>Plan</label>
+				<span>Free Plan</span>
+			</li>
+			<li>
+				<label>User Agreement</label>
+				<input type="checkbox" />
+				I have read and accept the User Agreement. 
+			</li>
+			<li class="submit">
+				<input type="submit" value="Create My Store" class="button submit" title="Create My Store" />
+			</li>
+		</ul>
+	</fieldset>
+
+</form>
+
+<hr />
+
+<form action="/signup" method="post" class="form">
+
+	<h2>Simple Signup Form</h2>
+	<fieldset>
+		<legend>Personal Information</legend>
+		<p>These are the login details for the Administrator User for your store.</p>
+		<ul>
+			<li>
+				<label for="email">Email</label>
+				<input type="text" name="email" class="text" title="Email" />
+			</li>
+			<li>
+				<label for="password">Password</label>
+				<input type="password" name="password" class="text password" title="Password" />
+			</li>
+			<li>
+				<label for="pasword2">Confirm Password</label>
+				<input type="password" name="password2" class="text password" title="Confirm Password" />
+			</li>
+			<li>
+				<label for="url">Store URL</label>
+				<span class="nowrap">
+					http://<input type="text" name="url" value="" class="text sml" title="Store URL" />.store-dev.com
+					<input type="hidden" name="domain" value="store-dev.com" />
+				</span>
+			</li>
+			<li>
+				<label>Plan</label>
+				<span>Free Plan</span>
+			</li>
+			<li>
+				<label>User Agreement</label>
+				<span class="checkbox"><input type="checkbox" class="checkbox" /> I have read and accept the User Agreement.</span>
+			</li>
+			<li class="submit">
+				<input type="submit" value="Create My Store" class="button submit" title="Create My Store" />
+			</li>
+		</ul>
+	</fieldset>
+
+</form>
+
+<!-- #ELSE -->
+
+
+	<h2>Doh! We are accepting invites only at the moment.</h2>
+	<p>If you would like to know more please <a href="http://cartching.com/contact/">email us</a></p> 
+
+
+<!-- #ENDIF -->
+
+
+<!-- #ENDBLOCK -->

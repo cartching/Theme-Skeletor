@@ -1,0 +1,75 @@
+﻿<!--/
+	Cartching Theme | Skeletor
+    Copyright (c) Cartching, 2011
+    http://cartching.com
+/-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://purl.org/uF/2008/03/ http://purl.org/uF/hAtom/0.1/">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>{{page.title | html_encode}} | {{store}}</title>
+
+<meta http-equiv="imagetoolbar" content="false" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="robots" content="index, follow" />
+<meta name="distribution" content="global" />
+<meta name="copyright" content="{{store | html_encode}}, {{store.url}}" />
+<meta name="author" content="{{store.url}}" />
+<meta name="keywords" content="{{page.keywords | html_encode}}" />
+<meta name="description" content="{{page.description | html_encode}}" />
+
+<link rel="author" href="{{store.url}}" />
+<link rel="home" title="home" href="{{store.url}}" />
+<link rel="stylesheet" type="text/css" href="{{theme.files}}/theme.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{store.files}}/custom.css" media="screen" />
+<link rel="canonical" href="{{page.url}}" />
+
+<script type="text/javascript" src="http://cachedcommons.org/cache/jquery/1.4.2/javascripts/jquery-min.js"></script>
+
+<!-- #BLOCK name="head_content" -->
+<!-- #ENDBLOCK -->
+
+<!-- #IF {{snippets.head-content}} -->
+{{snippets.head-content}}
+<!-- #ELSE -->
+    <!-- 
+        //	- Add a Snippet named "Head Content"
+        //	Example -
+	    //		<meta name="google-site-verification" content="" />
+    	//		<meta name="verify-v1" content="" />
+    -->
+<!-- #ENDIF -->
+
+</head>
+
+<body id="{{page.id}}" class="{{page.id}} {{page.template}}">
+
+
+<!-- #BLOCK name="pagetitle_area" -->
+<!-- #ENDBLOCK -->
+
+
+<!-- #BLOCK name="content_area" -->
+<!-- #ENDBLOCK -->
+
+
+<!-- #BLOCK name="aside_area" -->
+<!-- #ENDBLOCK -->
+
+
+<!-- #BLOCK name="script_content" -->
+<!-- #ENDBLOCK -->
+
+<!-- #IF {{snippets.script-content}} -->
+{{snippets.script-content}}
+<!-- #ELSE -->
+    <!-- 
+        // - Add a Snippet named "Script Content"
+        // Like your Google Anayltics Code    
+    -->
+<!-- #ENDIF -->
+
+</body>
+</html>
